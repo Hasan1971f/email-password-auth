@@ -11,6 +11,7 @@ import Main from './layout/Main.jsx';
 import Home from './Components/Home/Home.jsx';
 import Login from './Components/Login/Login.jsx';
 import Regester from './Components/Regeter/Regester.jsx';
+import SignUp from './Components/SignUp/SignUp.jsx';
 
 
 const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
      {
       path: 'register',
       element: <Regester></Regester>
+     },
+     {
+      path: 'signup',
+      element: <SignUp></SignUp>
      }
     ]
   },
