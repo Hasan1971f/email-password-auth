@@ -4,6 +4,7 @@ import { useState } from "react";
 
 
 const SignUp = () => {
+    const [success, setSuccess] = useState(false)
     const[errorMessage, setErrorMessage] = useState('')
    
     const handleSignUp = e =>{
@@ -16,17 +17,33 @@ const SignUp = () => {
         //  reset error and status
 
         setErrorMessage('')
-
         
+      
+        if(password.length <6){
+            setErrorMessage('Password should be 6 cahracters or long')
+            return
+        }
+
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+
+        if (!passwordRegex.test(password)) {
+            setErrorMessage('At least one uppercase, one lowercase, one number, one specialcharacter')
+            return
+        }
+
 
     //    create user with email and password
        createUserWithEmailAndPassword(auth, email, password)
        .then(result =>{
            console.log(result.user)
+           setSuccess(true)
+          
        })
       .catch(error =>{
         console.log("ERROR", error.message)
         setErrorMessage(error.message)
+        setSuccess(false)
+       
       
       })
     }
@@ -57,6 +74,9 @@ const SignUp = () => {
             </form>
            {
             errorMessage && <p className="text-sky-400">{ errorMessage}</p>
+           }
+           {
+            success && <p className="text-green-600">Signup is successfully</p>
            }
         </div>
 
